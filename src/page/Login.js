@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button, TextField } from '@mui/material';
 import Table from './Table';
 
-let arrayData = [];
+//let arrayData = [];
 class LoginForm extends Component {
 
     constructor(props) {
@@ -17,7 +17,8 @@ class LoginForm extends Component {
     handleDataSubmit = (e) => {
         e.preventDefault();
         
-        let object = {
+        let object1 = {
+            id: Math.floor((Math.random() * 100) + 1),
             name: this.state.name,
             password: this.state.password
         };
@@ -25,17 +26,22 @@ class LoginForm extends Component {
         // values = JSON.parse(oData).map(d => d[1]);
         // console.log(values)
         
-        arrayData.push(
-            object
-        )
+        this.state.items.push(object1)
 
         this.setState({
             name: '',
             password: '',
         })
-        console.log('arrayData :', object)
+        console.log('arrayData :', this.state.items)
     }
 
+    handleCallback = (filterData) => {
+        this.setState({ items: filterData })
+    }
+
+    callbackEdit = (filterData) => {
+        this.setState({ name: filterData.name , password: filterData.password})
+    }
     handleChangeName = (e) => {
         let name = e.target.name;
         let value = e.target.value;
@@ -77,7 +83,7 @@ class LoginForm extends Component {
                         Login
                     </Button>
                     {
-                        <Table items={this.state.items} />
+                        <Table items={this.state.items} callback={this.handleCallback} callbackEdit={this.handleCallback1}/>
                     }
                 </div>
 

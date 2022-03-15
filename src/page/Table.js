@@ -15,23 +15,21 @@ class DataTable extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            items: []
         }
     }
      
-    handleDelete = (index) => {
-        if(TableCell.length > 1){
-            var updatedRows = [...TableCell]
-            var indexToRemove = updatedRows.findIndex(x => x.index == index);
-            if(indexToRemove > -1){
-               updatedRows.splice(indexToRemove, 1)
-               this.state.row(updatedRows);
-            }
-         }
+    handleDelete = (id) => {
+        let filterData = this.props.items.filter((l) => l.id !== id)
+        console.log(filterData)
+        this.props.callback(filterData)
+    }
+
+    handleEdit = (id) => {
+        let filterData = this.props.items.filter((l) => l.id === id)
+        this.props.callbackEdit(filterData)
     }
 
     render() {
-        const items = this.props.items;
         return (
             <div>
                 <TableContainer component={Paper} className="container mt-5">
@@ -40,25 +38,27 @@ class DataTable extends Component {
                             <TableRow>
                                 <TableCell>Name</TableCell>
                                 <TableCell>Password</TableCell>
-                                <TableCell>Edit / Delete</TableCell>
+                                <TableCell>Edit</TableCell>
+                                <TableCell> Delete</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {
-                                items ?
-                                    items.map((l, i) => (
+                                this.props.items ?
+                                this.props.items.map((l, i) => (
                                         <TableRow key={i} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                                             <TableCell component="th" scope="row">{l.name}</TableCell>
                                             <TableCell>{l.password}</TableCell>
-                                            <TableCell>
+                                            <TableCell>             
                                                 <IconButton onClick={() => this.handleEdit(l.id)} className='me-3'>
                                                     <EditIcon />
                                                 </IconButton>
-                                                {/* <IconButton onClick={() => this.handleDelete(l.id)}>
+                                            {/* <TableCell key={this.index}  className='btn' onClick={this.handleDelete()}>Delete</TableCell> */}
+                                            </TableCell>
+                                            <TableCell>
+                                            <IconButton onClick={() => this.handleDelete(l.id)}>
                                                     <DeleteIcon />
-                                                </IconButton> */}
-                                            <TableCell key={this.index}  className='btn' onClick={this.handleDelete()}>Delete</TableCell>
-
+                                                </IconButton>
                                             </TableCell>
                                         </TableRow>
                                     ))
