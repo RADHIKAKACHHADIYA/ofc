@@ -26,9 +26,7 @@ class DataTable extends Component {
 
     handleEdit = (id) => {
         let filterEditData = this.props.items.filter((l) => l.id === id)
-        this.props.callbackEdit(filterEditData)
-        console.log("updatedata :: ", filterEditData)
-        
+        this.props.callbackEdit(filterEditData[0])
     }
 
     render() {

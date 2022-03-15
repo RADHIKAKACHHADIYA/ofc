@@ -89,7 +89,7 @@ export default class loginForm extends Component {
       } else return emp;
     });
 
-    this.setState((prevStae, props) => ({
+    this.setState(() => ({
       employees: employeesupdated,
       create: true,
       firstname: "",

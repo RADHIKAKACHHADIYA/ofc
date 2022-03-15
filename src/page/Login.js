@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, TextField } from '@mui/material';
 import Table from './Table';
-
+let tepmArray = []
 class LoginForm extends Component {
 
     constructor(props) {
@@ -11,7 +11,6 @@ class LoginForm extends Component {
             password: '',
             items: [],
             isEdit: true
-
         }
     }
 
@@ -44,41 +43,29 @@ class LoginForm extends Component {
         this.setState({ items: filterData })
     }
 
-    handleEdit = () => {
-        let data = {
-            id: this.state.id,
-            ...this.state
-        }
-        const updateData = this.items.map((u) => {
-            if (u.id === data.id) {
-                return data
-            } else {
-                return u
+    handleEdit = (id)  => {
+    
+       let items = items.map((e , i) => {
+            if(e.id === id) {
+                this.items[i] =  id 
             }
+            return e
         })
-
-        this.setState({
-            isEdit: false,
-            name: '',
-            id: '',
-            password: '',
-            items: updateData
-        })
-        console.log(this.handleEdit)
+    
     }
+
     callbackFunction = (filterEditData) => {
         this.setState({
             id: filterEditData.id,
             name: filterEditData.name,
             password: filterEditData.password,
-            isEdit: true
+            isEdit: false
         })
-        console.log(filterEditData)
+        console.log("callbackFunction : ", filterEditData.name, filterEditData.password)
     }
 
 
     render() {
-        const isEdit = this.state.isEdit ? "Login" : "Update";
 
         return (
             <div >
@@ -91,7 +78,7 @@ class LoginForm extends Component {
                                 name="name"
                                 className='mt-3'
                                 label='Name'
-                                value={this.NewUsername}
+                                value={this.state.name}
                                 onChange={this.handleChangeName}
                             />
                         </div>
@@ -101,7 +88,7 @@ class LoginForm extends Component {
                                 label='Passowrd'
                                 name="password"
                                 className='my-4'
-                                value={this.NewPassword}
+                                value={this.state.password}
                                 onChange={this.handleChangeName}
                             />
                         </div>
@@ -109,14 +96,10 @@ class LoginForm extends Component {
 
                     <Button variant="outlined"
                         type="submit"
-                        onClick={
-                            this.state.isEdit
-                                ? this.handleDataSubmit
-                                : this.handleEdit
-                        }
+                        onClick={this.handleDataSubmit}
                         className="mt-3"
                     >
-                        Login
+                        login
                     </Button>
                     {
                         <Table items={this.state.items} callback={this.handleCallback} callbackEdit={this.callbackFunction} />
