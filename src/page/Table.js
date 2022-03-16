@@ -17,7 +17,7 @@ class DataTable extends Component {
         this.state = {
         }
     }
-     
+
     handleDelete = (id) => {
         let filterData = this.props.items.filter((l) => l.id !== id)
         console.log(filterData)
@@ -26,6 +26,9 @@ class DataTable extends Component {
 
     handleEdit = (id) => {
         let filterEditData = this.props.items.filter((l) => l.id === id)
+
+        console.log(filterEditData);
+
         this.props.callbackEdit(filterEditData[0])
     }
 
@@ -45,18 +48,18 @@ class DataTable extends Component {
                         <TableBody>
                             {
                                 this.props.items ?
-                                this.props.items.map((l, i) => (
+                                    this.props.items.map((l, i) => (
                                         <TableRow key={i} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                                             <TableCell component="th" scope="row">{l.name}</TableCell>
                                             <TableCell>{l.password}</TableCell>
-                                            <TableCell>             
+                                            <TableCell>
                                                 <IconButton onClick={() => this.handleEdit(l.id)} className='me-3'>
                                                     <EditIcon />
                                                 </IconButton>
-                                            {/* <TableCell key={this.index}  className='btn' onClick={this.handleDelete()}>Delete</TableCell> */}
+                                                {/* <TableCell key={this.index}  className='btn' onClick={this.handleDelete()}>Delete</TableCell> */}
                                             </TableCell>
                                             <TableCell>
-                                            <IconButton onClick={() => this.handleDelete(l.id)}>
+                                                <IconButton onClick={() => this.handleDelete(l.id)}>
                                                     <DeleteIcon />
                                                 </IconButton>
                                             </TableCell>

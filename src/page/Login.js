@@ -10,13 +10,13 @@ class LoginForm extends Component {
             name: '',
             password: '',
             items: [],
-            isEdit: true
+            isEdit: false
         }
     }
 
     handleDataSubmit = (e) => {
-        e.preventDefault();
 
+        console.log()
         let objectData = {
             id: Math.floor((Math.random() * 100) + 1),
             name: this.state.name,
@@ -44,22 +44,35 @@ class LoginForm extends Component {
     }
 
     handleEdit = (id)  => {
+
+        let data = {
+            "id": this.state.id,
+            ...this.state
+        }
     
-       let items = items.map((e , i) => {
-            if(e.id === id) {
-                this.items[i] =  id 
+       let updateData = this.state.items.map((e , i) => {
+            if(e.id === data.id) {
+               return data 
+            } else {
+               return e
             }
-            return e
         })
+
+        this.setState({ items: updateData, isEdit: true, name: '', password: '' })
     
     }
 
     callbackFunction = (filterEditData) => {
+        console.log(filterEditData)
+        console.log(this.state.items)
+
+        // item 
+
         this.setState({
             id: filterEditData.id,
             name: filterEditData.name,
             password: filterEditData.password,
-            isEdit: false
+            isEdit: true
         })
         console.log("callbackFunction : ", filterEditData.name, filterEditData.password)
     }
@@ -96,12 +109,13 @@ class LoginForm extends Component {
 
                     <Button variant="outlined"
                         type="submit"
-                        onClick={this.handleDataSubmit}
+                        onClick={this.state.isEdit ? this.handleEdit : this.handleDataSubmit}
                         className="mt-3"
                     >
                         login
                     </Button>
                     {
+                        this.state.items &&
                         <Table items={this.state.items} callback={this.handleCallback} callbackEdit={this.callbackFunction} />
                     }
                 </div>
