@@ -1,65 +1,61 @@
-import React, { Component } from 'react';
-import { Button, TextField } from '@mui/material';
-import Table from './Table';
+import { Button } from '@mui/material';
+import React, { Component, createRef } from 'react';
+import TableData from './TableData';
 
-// let tepmArray = []
-
-class LoginForm extends Component {
+class LoginPage extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            // name: '',
-            // password: '',
             items: [],
             isEdit: false
         }
-        this.nameRef = React.createRef();
+        this.textInput = createRef();
     }
-
     handleDataSubmit = () => {
-
         let objectData = {
             id: Math.floor((Math.random() * 100) + 1),
-            name: this.state.name,
-            password: this.state.password
+            name: this.textInput.current.name,
+            password: this.textInput.current.password,
+            value: this.state.value
         };
         this.state.items.push(objectData)
-        this.setState({
-            name: "",
-            password: "",
-        })
-    }
+        console.log("objectData :: ", objectData)
 
+        this.setState({
+            name: '',
+            password: '',
+        })
+        console.log(this.state.textInput)
+    };
+    
     handleChangeName = (e) => {
         let name = e.target.name;
         let value = e.target.value;
-
+        
         this.setState({
+            textInput:  e.target.value,
             [name]: value
-        })
+        });
     }
+
     handleCallback = (filterData) => {
         this.setState({ items: filterData })
     }
 
-    handleEdit = ()  => {
-
+    handleEdit = () => {
         let data = {
             "id": this.state.id,
             ...this.state
         }
-    
-       let updateData = this.state.items.map((e) => {
-            if(e.id === data.id) {
-               return data 
+        let updateData = this.state.items.map((e) => {
+            if (e.id === data.id) {
+                return data
             } else {
-               return e
+                return e
             }
         })
-
-        this.setState({ items: updateData , isEdit: true , name: '' , password: '' })
-    
+        this.setState({ items: updateData, isEdit: true, name: '', password: '' })
     }
 
     callbackFunction = (filterEditData) => {
@@ -77,28 +73,30 @@ class LoginForm extends Component {
     render() {
 
         return (
-            <div >
+            <div>
                 <div className='container'>
                     <h2>Login</h2>
                     <form>
                         <div>
-                            <TextField
+                            <input
                                 type="name"
                                 name="name"
                                 className='mt-3'
-                                label='Name'
                                 value={this.state.name}
                                 onChange={this.handleChangeName}
+                                placeholder="Name"
+                                ref={this.textInput}
                             />
                         </div>
                         <div>
-                            <TextField
+                            <input
                                 type="password"
-                                label='Passowrd'
                                 name="password"
                                 className='my-4'
+                                placeholder='password'
                                 value={this.state.password}
                                 onChange={this.handleChangeName}
+                                ref={this.textInput}
                             />
                         </div>
                     </form>
@@ -108,11 +106,11 @@ class LoginForm extends Component {
                         onClick={this.state.isEdit ? this.handleEdit : this.handleDataSubmit}
                         className="mt-3"
                     >
-                        { this.state.isEdit ? 'Login' : 'Edit'}
+                       Login
                     </Button>
                     {
                         this.state.items &&
-                        <Table items={this.state.items} callback={this.handleCallback} callbackEdit={this.callbackFunction} />
+                        <TableData items={this.state.items} callback={this.handleCallback} callbackEdit={this.callbackFunction}  />
                     }
                 </div>
 
@@ -121,4 +119,4 @@ class LoginForm extends Component {
     }
 }
 
-export default LoginForm;
+export default LoginPage;

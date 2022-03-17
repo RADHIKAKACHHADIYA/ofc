@@ -1,13 +1,14 @@
 import './App.css';
 import { Routes , Route} from 'react-router-dom';
-import Login from '../src/page/Login';
-import "../node_modules/bootstrap/dist/css/bootstrap.min.css";  
+import LoginPage from './Login_page/LoginPage';
+// import Login from '../src/page/Login';
 
 function App() {
   return (
     <div>
       <Routes>
-        <Route path='/' element={<Login/>}/>
+        {/* <Route path='/login' element={<Login/>}/> */}
+        <Route  path='/login' element={<LoginPage/>}/>
       </Routes>
 
     </div>
