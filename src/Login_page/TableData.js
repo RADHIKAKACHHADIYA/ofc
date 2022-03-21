@@ -16,7 +16,7 @@ class TableData extends Component {
         super(props);
         this.state = {
         }
-        // this.myRef = React.createRef();
+
     }
 
     handleDelete = (id) => {
@@ -28,6 +28,7 @@ class TableData extends Component {
         let filterEditData = this.props.items.filter((l) => l.id === id)
         this.props.callbackEdit(filterEditData[0])
     }
+
 
     render() {
         return (
@@ -45,23 +46,23 @@ class TableData extends Component {
                         <TableBody>
                             {
                                 this.props.items.length > 0 ?
-                                        this.props.items.map((l, i) => (
-                                            <TableRow key={i} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                                                <TableCell component="th" scope="row">{l.name}</TableCell>
-                                                <TableCell>{l.password}</TableCell>
-                                                <TableCell>
-                                                    <IconButton onClick={() => this.handleEdit(l.id)} className='me-3'>
-                                                        <EditIcon />
-                                                    </IconButton>
-                                                </TableCell>
-                                                <TableCell>
-                                                    <IconButton onClick={() => this.handleDelete(l.id)}>
-                                                        <DeleteIcon />
-                                                    </IconButton>
-                                                </TableCell>
-                                            </TableRow>
-                                        ))
-                                        : null
+                                    this.props.items.map((l, i) => (
+                                        <TableRow key={i} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                                            <TableCell component="th" scope="row">{l.name}</TableCell>
+                                            <TableCell>{l.password}</TableCell>
+                                            <TableCell>
+                                                <IconButton onClick={() => this.handleEdit(l.id)} className='me-3'>
+                                                    <EditIcon />
+                                                </IconButton>
+                                            </TableCell>
+                                            <TableCell>
+                                                <IconButton onClick={() => this.handleDelete(l.id)}>
+                                                    <DeleteIcon />
+                                                </IconButton>
+                                            </TableCell>
+                                        </TableRow>
+                                    ))
+                                    : null
                             }
                         </TableBody>
                     </Table>
