@@ -38,7 +38,9 @@ class TableData extends Component {
                         <TableHead>
                             <TableRow>
                                 <TableCell>Name</TableCell>
-                                <TableCell>Password</TableCell>
+                                <TableCell>Email</TableCell>
+                                <TableCell>Gender</TableCell>
+                                <TableCell>status</TableCell>
                                 <TableCell>Edit</TableCell>
                                 <TableCell>Delete</TableCell>
                             </TableRow>
@@ -49,7 +51,9 @@ class TableData extends Component {
                                     this.props.items.map((l, i) => (
                                         <TableRow key={i} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                                             <TableCell component="th" scope="row">{l.name}</TableCell>
-                                            <TableCell>{l.password}</TableCell>
+                                            <TableCell>{l.email}</TableCell>
+                                            <TableCell>{l.gender}</TableCell>
+                                            <TableCell>{l.status}</TableCell>
                                             <TableCell>
                                                 <IconButton onClick={() => this.handleEdit(l.id)} className='me-3'>
                                                     <EditIcon />
