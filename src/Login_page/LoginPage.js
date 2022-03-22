@@ -14,17 +14,19 @@ class LoginPage extends Component {
         this.state = {
             items: [],
             isEdit: false,
+            theme: themes.light,
+            toggleTheme: this.toggleTheme,
         }
+
+        this.toggleTheme = (themes) => {
+            this.setState(state => ({
+               theme :
+                state.theme === themes.dark
+                  ? this.props.themes.light
+                  : this.props.themes.dark,
+            }));
+          };
     }
-    // componentDidMount = () => {
-    //     fetch("")
-    //         .then((res) => res.json())
-    //         .then((json) => {
-    //             this.setState({
-    //                 items: json,
-    //             });
-    //         })
-    // }
     componentDidMount = () => {
         axios.get('https://gorest.co.in/public/v2/users')
             .then((response) => {
@@ -32,27 +34,9 @@ class LoginPage extends Component {
                 this.setState({ items });
             })
             .catch((error) => {
-                this.setState({errorMsg: error.message})
+                this.setState({ errorMsg: error.message })
                 console.error('There was an error!', error);
             });
-        // axios.post("https://jsonplaceholder.typicode.com/posts", this.state.objectData)
-        //     .then((response) => {
-        //         console.log(response);
-        //     })
-        //     .catch((error) => {
-        //         this.setState({errorMsg: error.message})
-        //         console.error('There was an error!', error);
-        //       });
-        //         const obData = {
-        //             method: 'POST',
-        //             headers: {},
-        //             body: JSON.stringify({ title: 'post' })
-
-        //         };
-        //         fetch('https://gorest.co.in/public/v2/users', obData)
-        //             .then(response => response.json())
-        //             .then(data => this.setState({ postId: data.id }));
-        // console.log(obData)
     }
 
     handleDataSubmit = () => {
@@ -64,13 +48,27 @@ class LoginPage extends Component {
             status: this.statusref.current.value,
         };
         this.state.items.push(objectData)
-        this.setState({
-            name: "",
-            email: "",
-            gender: "",
-            status: "",
-        })
+
+        axios.post("https://jsonplaceholder.typicode.com/posts", objectData)
+            .then((response) => {
+                const dataPost = response.items;
+                this.setState({ 
+                    dataPost ,
+                    name: "",
+                    email: "",
+                    gender: "",
+                    status: ""
+                });
+            })
+            .catch((error) => {
+                this.setState({
+                    ...this.state,
+                    "error": error
+                });
+                console.error('There was an error!', error);
+            });
     };
+
     handleChangeName = () => {
         this.setState({
             name: this.nameref.current.value,
@@ -114,7 +112,7 @@ class LoginPage extends Component {
             status: filterEditData.status,
             isEdit: true
         })
-        console.log("filterEditData : ", filterEditData.name, filterEditData.email)
+        // console.log("filterEditData : ", filterEditData.name, filterEditData.email)
     }
 
 
@@ -126,10 +124,10 @@ class LoginPage extends Component {
                     <form>
                         <div>
                             <input
-                                type="name"
+                                type="text"
                                 name="name"
                                 className='mt-3'
-                                placeholder="Name"
+                                placeholder="name"
                                 value={this.state.name}
                                 onChange={this.handleChangeName}
                                 ref={this.nameref}

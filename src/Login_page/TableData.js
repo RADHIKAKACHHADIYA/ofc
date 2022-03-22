@@ -9,6 +9,7 @@ import Paper from '@mui/material/Paper';
 import { IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import axios from 'axios';
 
 class TableData extends Component {
 
@@ -20,13 +21,23 @@ class TableData extends Component {
     }
 
     handleDelete = (id) => {
-        let filterData = this.props.items.filter((l) => l.id !== id)
-        this.props.callback(filterData)
+        // let filterData = this.props.items.filter((l) => l.id !== id)
+        axios.delete(`https://jsonplaceholder.typicode.com/posts/${id}`)
+            .then(response => {
+                const filterData = this.props.items.filter((item) => item.id !== id);
+                this.props.callback(filterData)
+                this.setState({ filterData });
+            })
     }
 
     handleEdit = (id) => {
         let filterEditData = this.props.items.filter((l) => l.id === id)
         this.props.callbackEdit(filterEditData[0])
+        
+        // axios.put(`https://jsonplaceholder.typicode.com/posts/${id}`)
+        //     .then((response) => {
+        //         setPost(response.data);
+        //     });
     }
 
 
@@ -37,7 +48,7 @@ class TableData extends Component {
                     <Table sx={{ minWidth: 650 }} aria-label="simple table">
                         <TableHead>
                             <TableRow>
-                                <TableCell>Name</TableCell>
+                                <TableCell>name</TableCell>
                                 <TableCell>Email</TableCell>
                                 <TableCell>Gender</TableCell>
                                 <TableCell>status</TableCell>
