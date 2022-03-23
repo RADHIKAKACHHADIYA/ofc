@@ -3,6 +3,7 @@ import axios from 'axios';
 import React, { Component, createRef } from 'react';
 import TableData from './TableData';
 
+
 class LoginPage extends Component {
 
     constructor(props) {
@@ -14,18 +15,14 @@ class LoginPage extends Component {
         this.state = {
             items: [],
             isEdit: false,
-            theme: themes.light,
-            toggleTheme: this.toggleTheme,
         }
 
-        this.toggleTheme = (themes) => {
-            this.setState(state => ({
-               theme :
-                state.theme === themes.dark
-                  ? this.props.themes.light
-                  : this.props.themes.dark,
-            }));
-          };
+
+        this.state = {
+            theme : this.themes,
+            toggleTheme : this.toggleTheme
+        }
+        console.log(this.themes)
     }
     componentDidMount = () => {
         axios.get('https://gorest.co.in/public/v2/users')
@@ -52,8 +49,8 @@ class LoginPage extends Component {
         axios.post("https://jsonplaceholder.typicode.com/posts", objectData)
             .then((response) => {
                 const dataPost = response.items;
-                this.setState({ 
-                    dataPost ,
+                this.setState({
+                    dataPost,
                     name: "",
                     email: "",
                     gender: "",

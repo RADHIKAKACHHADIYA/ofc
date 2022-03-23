@@ -1,31 +1,13 @@
-/* tuck jugdish */
-/* sidha sada soda */
 .App {
   text-align: center;
 }
- /* .container{
-  max-width: 100%;
-  width: 1140px;
-  margin: 0 auto;
-  padding-left: 15px;
-  padding-right: 15px; 
+.light{
+  background-color: black;
+  color: white;
 }
-.title-text{
-  text-align: center;
-  font-size: 30px;
+ .btn-dark:focus {
+  color: #fff;
+  background-color: #1c1f23;
+  border-color: #1a1e21;
+  box-shadow: none;
 }
-.form-body div{
-  margin: 15px auto;
-  display: flex;
-  position: relative;
-}
-.form-body .btn{
-  width: 100px;
-  margin: 0 auto;
-  position: absolute;
-  right: 25%;
-  left: 25%;
-}
-.form_table{
-  margin: 65px auto;
-} */

@@ -1,18 +1,21 @@
 import './App.css';
-import { Routes , Route} from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import LoginPage from './Login_page/LoginPage';
-import ToogleBtn from './context/toogleBtn';
-// import Login from '../src/page/Login';
+import Context from './context/context';
+import Context1 from './context/context_1';
+import Context2 from './context/context_2';
 
 function App() {
   return (
     <div>
-      <Routes>
-        {/* <Route path='/login' element={<Login/>}/> */}
-        <Route  path='/login' element={<LoginPage/>}/>
-        <Route  path='/theme' element={<ToogleBtn/>}/>
-      </Routes>
-
+      <Context>
+        <Routes>
+          <Route path='/login' element={<LoginPage />} />
+          <Route path='/context' element={<Context />} />
+          <Route path='/context1' element={<Context1 />} />
+          <Route path='/context2' element={<Context2 />} />
+        </Routes>
+      </Context>
     </div>
   );
 }
